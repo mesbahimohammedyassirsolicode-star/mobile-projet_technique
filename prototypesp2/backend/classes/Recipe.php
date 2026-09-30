@@ -9,52 +9,32 @@ class Recipe
         $this->file = $file;
     }
 
+    // Read recipes from the JSON file and return them as PHP arrays.
     public function getAll(): array
     {
-        $data = file_get_contents($this->file);
+        $content = file_get_contents($this->file);
+        $recipes = json_decode($content ?: '[]', true);
 
-        return json_decode($data, true);
+        return is_array($recipes) ? $recipes : [];
     }
 
+    // Add one recipe and automatically choose the next ID.
     public function add(string $titre, int $category_id): bool
     {
         $recipes = $this->getAll();
-
-        if (count($recipes) > 0) {
         $ids = array_column($recipes, 'id');
-        $maxId = max($ids);
-        $newId = $maxId + 1;
-    } else {
-        $newId = 1;
-    }
+        $newId = count($ids) > 0 ? max($ids) + 1 : 1;
 
-        $newRecipe = [
-            "id" => $newId,
-            "titre" => $titre,
-            "category_id" => $category_id
+        $recipes[] = [
+            'id' => $newId,
+            'titre' => $titre,
+            'category_id' => $category_id
         ];
-
-        $recipes[] = $newRecipe;
 
         return file_put_contents(
             $this->file,
-            json_encode($recipes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
+            json_encode($recipes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
+            LOCK_EX
         ) !== false;
-    }
-     public function getByCategory(int $category_id): array
-    {
-        $recipes = $this->getAll();
-
-        $result = [];
-
-        foreach ($recipes as $recipe) {
-
-            if ($recipe["category_id"] === $category_id) {
-                $result[] = $recipe;
-            }
-
-        }
-
-        return $result;
     }
 }
