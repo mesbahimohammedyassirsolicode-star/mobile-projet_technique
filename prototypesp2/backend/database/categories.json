@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "titre": "Tajine de poulet",
+        "category_id": 2
+    },
+    {
+        "id": 2,
+        "titre": "Tiramisu",
+        "category_id": 3
+    },
+    {
+        "id": 3,
+        "titre": "Salade marocaine",
+        "category_id": 1
+    },
+    {
+        "id": 4,
+        "titre": "Pizza",
+        "category_id": 2
+    },
+    {
+        "id": 5,
+        "titre": "nadya",
+        "category_id": 2
+    },
+    {
+        "id": 6,
+        "titre": "asas",
+        "category_id": 2
+    },
+    {
+        "id": 7,
+        "titre": "Pizza",
+        "category_id": 2
+    }
+]
