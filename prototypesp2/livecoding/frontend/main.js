@@ -1,13 +1,8 @@
-const apiUrl = '../backend/api/recipes.php';
+const apiUrl = '../backend/api/api.php';
 
 const form = document.getElementById('recipe-form-element');
 const recipeList = document.getElementById('recipe-list');
 const message = document.getElementById('message');
-
-
-// =========================
-// GET : afficher les recettes
-// =========================
 function loadRecipes() {
 
     fetch(apiUrl)
@@ -22,7 +17,7 @@ function loadRecipes() {
                     <tr>
                         <td>${recipe.id}</td>
                         <td>${recipe.titre}</td>
-                        <td>${recipe.category_id}</td>
+                        <td>${recipe.id_category}</td>
                     </tr>
                 `;
 
@@ -36,9 +31,7 @@ function loadRecipes() {
 }
 
 
-// =========================
-// POST : ajouter une recette
-// =========================
+
 form.addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -55,7 +48,7 @@ form.addEventListener('submit', function(event) {
 
         body: JSON.stringify({
             titre: titre,
-            category_id: Number(category_id)
+            category_id: category_id
         })
 
     })
@@ -65,13 +58,8 @@ form.addEventListener('submit', function(event) {
     .then(result => {
 
         message.textContent = result.message;
-
-        if (result.success) {
-
-            form.reset();
-
-            loadRecipes();
-        }
+        form.reset();
+       loadRecipes();
 
     })
 

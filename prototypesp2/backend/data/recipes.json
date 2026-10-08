@@ -1,7 +1,12 @@
 [
     {
         "id": 1,
-        "titre": "ti",
+        "titre": "tajine",
         "category_id": 3
+    },
+    {
+        "id": 2,
+        "titre": "lab",
+        "category_id": 1
     }
 ]

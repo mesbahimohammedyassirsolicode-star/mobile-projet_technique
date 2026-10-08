@@ -1,16 +1,14 @@
 <?php
-
 require_once __DIR__ . '/../classes/Recipe.php';
-
 header('Content-Type: application/json; charset=utf-8');
-
 $recipes = new Recipe(__DIR__ . '/../data/recipes.json');
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($recipes->getAll(), JSON_UNESCAPED_UNICODE);
     exit;
 }
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $titre = trim($data['titre'] ?? '');

@@ -19,7 +19,7 @@ class Recipe
     }
 
     // Add one recipe and automatically choose the next ID.
-    public function add(string $titre, int $category_id): bool
+    public function add(string $titre, int $category_id)
     {
         $recipes = $this->getAll();
         $ids = array_column($recipes, 'id');
