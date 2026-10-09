@@ -1,4 +1,4 @@
-const apiUrl = '../backend/api/api.php';
+const apiUrl = 'https://localhost:8000/backend/api/api.php';
 
 const form = document.getElementById('recipe-form-element');
 const recipeList = document.getElementById('recipe-list');

@@ -15,7 +15,7 @@ class recipe
         return is_array($content) ? $content:[];
 
     }
-    public function add(string $titre,   $id_category){
+    public function add(string $titre, int  $id_category){
     $recipes=$this->getALL();
     $id=array_column($recipes,'id');
     $newid=count($id) >0 ? max($id) +1:1;
