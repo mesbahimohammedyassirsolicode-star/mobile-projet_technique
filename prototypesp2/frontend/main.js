@@ -1,4 +1,4 @@
-const apiUrl = '../backend/api/recipes.php';
+const apiUrl = '';
 
 const form = document.getElementById('recipe-form-element');
 const recipeList = document.getElementById('recipe-list');

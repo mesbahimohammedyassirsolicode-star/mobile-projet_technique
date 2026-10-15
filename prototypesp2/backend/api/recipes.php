@@ -14,15 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titre = trim($data['titre'] ?? '');
     $categoryId = filter_var($data['category_id'] ?? null, FILTER_VALIDATE_INT);
 
-    // Accept only a title and one of the three prototype categories.
-    if ($titre === '' || $categoryId === false || !in_array($categoryId, [1, 2, 3], true)) {
-        http_response_code(400);
-        echo json_encode([
-            'success' => false,
-            'message' => 'Veuillez saisir un titre et choisir une catégorie valide.'
-        ], JSON_UNESCAPED_UNICODE);
-        exit;
-    }
+   
 
     if ($recipes->add($titre, $categoryId)) {
         echo json_encode([
