@@ -1,44 +1,39 @@
-
 <?php
-
-class reciper
+class recipe
 {
-    private string $file;
+    private int $id;
+    private  string $nom;
+    private string $categorie;
 
-    public function __construct(string $file)
+    public function __construct(int $id,string $nom,string $categorie)
     {
-        $this->file = $file;
+        $this->id=$id;
+        $this->nom=$nom;
+        $this->categorie=$categorie;
     }
 
-    public function getALL(): array
+    public function getid()
     {
-        $data = file_get_contents($this->file);
-        $content = json_decode($data, true);
+        return $this->id;
 
-        return is_array($content) ? $content : [];
+    }
+    public function getnom()
+    {
+        return $this->nom;
+    }
+    public function getcategorie()
+    {
+        return $this->categorie;
     }
 
-    public function add($name, $categories)
-    {
-        $recipes = $this->getALL();
 
-        $ids = array_column($recipes, 'id');
-        $newid = count($ids) > 0 ? max($ids) + 1 : 1;
 
-        $recipes[] = [
-            'id' => $newid,
-            'name' => $name,
-            'categorie' => $categories
-        ];
-
-        file_put_contents(
-            $this->file,
-            json_encode(
-                $recipes,
-                JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
-            )
-        );
-        echo json_encode(  $recipes,  JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE  );
-    }
 }
+
+
+
+
+
+
+
 ?>

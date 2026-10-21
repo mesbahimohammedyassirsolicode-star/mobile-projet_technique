@@ -1,7 +1,12 @@
 [
     {
         "id": 1,
-        "name": "tajine",
-        "categorie": "italie"
+        "nom": "as",
+        "categorie": "ad"
+    },
+    {
+        "id": 2,
+        "nom": "a",
+        "categorie": "dd"
     }
 ]
