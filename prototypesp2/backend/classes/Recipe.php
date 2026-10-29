@@ -24,7 +24,7 @@ class Recipe
         $recipes = $this->getAll();
         $ids = array_column($recipes, 'id');
         $newId = count($ids) > 0 ? max($ids) + 1 : 1;
-
+    
         $recipes[] = [
             'id' => $newId,
             'titre' => $titre,

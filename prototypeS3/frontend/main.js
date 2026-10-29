@@ -1,60 +1,92 @@
-const APIURL= 'http://localhost:8000/backend/api/api.php';
-const form = document.getElementById('form-categorie');
-const tbody= document.getElementById('table-categories-body');
-const nom=document.getElementById('cat-nom');
-const categorie=document.getElementById('cat-cate');
+const API_URL="http://localhost:8000/backend/api/Controller.php";
+const tbody=document.getElementById("table-categories-body")
+const form=document.getElementById("form-categorie")
+const nameF=document.getElementById("cat-nom")
+const descriptionF=document.getElementById("cat-desc")
+const btnshowform=document.getElementById("btn-show-form")
+const formSection=document.getElementById("section-form")
+const btnSubmit=document.getElementById("btn-submit")
+const btnTxt=document.getElementById("btn-text")
+const spinner=document.getElementById("spinner")
 
 
-function loadrecipe()
-{
-fetch(APIURL)
-.then(Response=>Response.json() )
-.then(recipe=>{
-    tbody.innerHTML='';
-    recipe.forEach(rec => {
+
+
+
+
+function showrecipes(){
+fetch(API_URL)
+.then(response=>response.json())
+.then(recipes=>{
+    tbody.innerHTML=""
+    recipes.forEach(recipe => {
         tbody.innerHTML+=`
         <tr>
-        <td>${rec.id}</td>
-        <td>${rec.nom}</td>
-        <td>${rec.categorie}</td>
-        </tr>
+            <td class="p-4 text-sm font-semibold text-gray-500">${recipe.name}</td>
+            <td class="p-4 text-sm font-semibold text-gray-500">${recipe.description}</td>
         
-        `
+        </tr>`
         
     });
-
-})}
-form.addEventListener('submit',function(event){
-
-event.preventDefault();
-let data ={nom:nom.value,
-categorie:categorie.value }
-
-fetch(APIURL,{
-    method:'POST',
-    headers:{'Content-type':'application/json'},
-    body:JSON.stringify(
-        data
-    )
-}
-)
-.then(Response=>Response.json())
-.then(resultat=>{
-loadrecipe()
-form.reset()
-
 })
-
-})
-function showtoast(){
-    const toast= document.getElementById('toast_message');
-    const creat=document.createComment('div');
-
-
-    toast.message=inn
-
-
 }
 
 
-loadrecipe()
+function showToast(message,type="success"){
+    const container=document.getElementById("toast-container")
+    const toast=document.createElement("div")
+    toast.classList="p-5 m-4 rounded "
+
+
+    if(type=="success"){
+        toast.classList.add("bg-green-500")
+
+    }else{
+          toast.classList.add("bg-red-500")
+    }
+    toast.textContent=message;
+    container.appendChild(toast)
+    setTimeout(()=>{
+        toast.remove()
+
+    },3000)
+}
+
+form.addEventListener("submit",function(e){
+    e.preventDefault();
+    const data={
+        name:nameF.value,
+        description:descriptionF.value
+    }
+    spinner.classList.remove("hidden")
+    btnTxt.textContent="Enregistrer en cours..."
+    btnSubmit.disabled=true
+
+    fetch(API_URL,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+
+        },
+        body:JSON.stringify(data)   
+    })
+    .then(response=>response.json())
+    .then(()=>{
+        showToast("added success","success")
+        form.reset()
+        showThematique()
+    }).catch(error=>{
+        showToast(error.message,"error")
+    }).finally(()=>{
+        spinner.classList.add("hidden")
+    })
+
+})
+
+btnshowform.addEventListener("click",function(){
+    formSection.classList.remove("hidden")
+    btnTxt.textContent="Enregistrer"
+    btnSubmit.disabled=false
+
+})
+document.addEventListener("DOMContentLoaded",showrecipes())
