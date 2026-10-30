@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../classes/Gestionrecipe.php';
-
+header("Content-Type: application/json");
 
 class ControllerRecipes
 {
@@ -27,7 +27,7 @@ public function creatRecipe()
     $jsondata=file_get_contents('php://input');
     $data=json_decode($jsondata,true);
     $gestionrecipe = new Gestionrecipe();
-$recipe=new recipe($data('id'),$data('name'),$data('Description'));
+$recipe=new recipe($data('Description'),$data('name'),$data('id'));
 $gestionrecipe->create($recipe);
 echo json_encode($recipe);
 

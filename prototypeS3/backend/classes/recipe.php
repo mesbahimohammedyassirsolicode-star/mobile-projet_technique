@@ -1,14 +1,15 @@
 <?php
 class recipe {
-    private $id;
+    private int $id;
     private $name;
     private $description;
    
 
-    public function __construct($id=0, $name, $description) {
-        $this->id = $id;
+    public function __construct($name, $description ,int $id=0) {
+       
         $this->name = $name;
         $this->description = $description;
+         $this->id = $id;
      
     }
 
