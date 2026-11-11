@@ -9,7 +9,7 @@ class Gestionrecipe
     $data=json_decode($jsondata,true);
     $recipes=[];
         foreach($data as $item){
-            $recipe= new recipe($item('id'),$item('name'),$item('description'));
+            $recipe= new recipe($item('description'),$item('name'),$item('id'));
             $recipes[]=$recipe;
         }
         return $recipes;
@@ -21,7 +21,7 @@ class Gestionrecipe
     $data=json_decode($jsondata,true);
     $id=count($data)+1;
     $data[]=[
-        "id"=>$recipes->getId(),
+        "id"=>$id,
         "name"=>$recipes->getName(),
         "description"=>$recipes->getDescription()
 
